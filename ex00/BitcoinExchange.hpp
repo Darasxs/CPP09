@@ -8,12 +8,16 @@
 #include <sstream>
 #include <exception>
 
-class BitcoinExchange 
+class BitcoinExchange
 {
 	private:
 
 	public:
-
-}
+		BitcoinExchange(void);
+		BitcoinExchange(const std::string &databaseFile);
+		BitcoinExchange(BitcoinExchange const &copy);
+		BitcoinExchange &operator=(BitcoinExchange const &copy);
+		~BitcoinExchange(void);
+};
 
 #endif
