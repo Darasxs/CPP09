@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:18:20 by dpaluszk          #+#    #+#             */
-/*   Updated: 2025/08/02 23:38:39 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2025/08/13 16:33:56 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cout << " " << std::endl;
+		std::cout << "Usage: ./btc <input_file>" << std::endl;
 	}
+
+	BitcoinExchange btc("data.csv");
+	btc.execute(argv[1]);
 
 	return (0);
 }

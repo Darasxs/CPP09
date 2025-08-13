@@ -11,6 +11,8 @@
 class BitcoinExchange
 {
 	private:
+		void openDatabaseFile(const std::string &databaseFile);
+		std::map<std::string, float> database;
 
 	public:
 		BitcoinExchange(void);
@@ -18,6 +20,8 @@ class BitcoinExchange
 		BitcoinExchange(BitcoinExchange const &copy);
 		BitcoinExchange &operator=(BitcoinExchange const &copy);
 		~BitcoinExchange(void);
+
+		void execute(const std::string &inputFile);
 };
 
 #endif
