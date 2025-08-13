@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:18:18 by dpaluszk          #+#    #+#             */
-/*   Updated: 2025/08/13 16:48:15 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:13:23 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ BitcoinExchange::~BitcoinExchange(void)
 
 void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 {
-	
 	std::ifstream databaseInstance(databaseFile);
 
 	if(!databaseInstance.is_open())
@@ -54,7 +53,14 @@ void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 	std::string line;
 	while(getline(databaseInstance, line))
 	{
-		std::cout << line;
+		std::istringstream stream(line);
+		std::string date, exchangeRate;
+		
+		getline(stream, date, ',');
+		getline(stream, exchangeRate);
+		
+		//std::cout << line;
+		//std::cout << std::endl;
 	}
 
 	databaseInstance.close();
