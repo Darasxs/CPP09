@@ -12,7 +12,8 @@ class BitcoinExchange
 {
 	private:
 		void openDatabaseFile(const std::string &databaseFile);
-		bool parseData(const std::string &date, const std::string &exchangeRate);
+		bool parseDate(const std::sting &date);
+		bool parseExchangeRate(const std::string &exchangeRate);
 		std::map<std::string, float> database;
 
 	public:

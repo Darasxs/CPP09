@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:18:18 by dpaluszk          #+#    #+#             */
-/*   Updated: 2025/08/17 21:38:16 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:26:25 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,16 @@ void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 
 		//std::cout << line;
 		//std::cout << std::endl;
+		if(parseDate(date) && parseExchangeRate(exchangeRate))
+		{
+			// function to insert date into a map
+		}
+		else
+		{
+			std::cerr << "Error: invalid data in the following line: " << line << std::endl;
+			std::exit(EXIT_FAILURE);
+		}
 	}
-	if(!parseData(date, exchangeRate))
-	{
-		databaseInstance.close();
-		return;
-	}
+
 	databaseInstance.close();
 }
