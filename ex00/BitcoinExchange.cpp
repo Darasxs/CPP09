@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:18:18 by dpaluszk          #+#    #+#             */
-/*   Updated: 2025/08/24 17:00:07 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2025/08/24 17:37:53 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ BitcoinExchange::~BitcoinExchange(void)
 bool BitcoinExchange::parseDate(const std::string &date)
 {
 	if(date.length() != 10 || date[4] != '-' || date[7] != '-')
+	{
+		std::cout << "5" << std::endl;
 		return false;
+	}
 
 	int year, month, day;
 	try
@@ -53,11 +56,15 @@ bool BitcoinExchange::parseDate(const std::string &date)
 	}
 	catch (const std::exception &e)
 	{
+		std::cout << "4" << std::endl;
 		return false;
 	}
 
-	if(year <= 0 || month < 1 || month > 12 || day < 1)
+	if (year <= 0 || month < 1 || month > 12 || day < 1)
+	{
+		std::cout << "3" << std::endl;
 		return false;
+	}
 
 	const int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
@@ -66,12 +73,18 @@ bool BitcoinExchange::parseDate(const std::string &date)
 	if (month == 2 && isLeapYear)
 	{
 		if (day > 29)
+		{
+			std::cout << "1" << std::endl;
 			return false;
+		}
 	}
 	else
 	{
 		if(day > daysInMonth[month])
+		{
+			std::cout << "2" << std::endl;
 			return false;
+		}
 	}
 
 	return true;
@@ -79,6 +92,26 @@ bool BitcoinExchange::parseDate(const std::string &date)
 
 bool BitcoinExchange::parseExchangeRate(const std::string &exchangeRate)
 {
+	try
+	{
+		double exchangeRateDouble = std::stod(exchangeRate);
+		if (exchangeRateDouble < 0)
+		{
+			std::cout << "6" << std::endl;
+			return false;
+		}
+		if (exchangeRateDouble > INT_MAX)
+		{
+			std::cout << "7" << std::endl;
+			return false;
+		}
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "Error: invalid exchange rate format: " << exchangeRate << std::endl;
+		return false;
+	}
+	return true;
 }
 
 void BitcoinExchange::updateMap(const std::string &date, float exchangeRate)
@@ -104,12 +137,6 @@ void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 	}
 	while(getline(databaseInstance, line))
 	{
-		// do the parsing for the date if it is valid YYYY-MM-DD
-		// check if length of the date is exactly 10, if '-' is at position 4 and 7
-		// check if the date year month and day are valid integers
-		// check if the exchange_rate is a valid floating point number
-		// add "date and exchange_rate" into the map
-		// convert exchange_rate to a floating point from a string before storing it
 
 		std::istringstream stream(line);
 		std::string date, exchangeRate;
