@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:18:18 by dpaluszk          #+#    #+#             */
-/*   Updated: 2025/08/19 19:26:25 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2025/08/24 17:00:07 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 BitcoinExchange::BitcoinExchange(void)
 {
-
 }
 
 BitcoinExchange::BitcoinExchange(const std::string &databaseFile)
@@ -39,6 +38,54 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &copy)
 BitcoinExchange::~BitcoinExchange(void)
 {
 }
+
+bool BitcoinExchange::parseDate(const std::string &date)
+{
+	if(date.length() != 10 || date[4] != '-' || date[7] != '-')
+		return false;
+
+	int year, month, day;
+	try
+	{
+		year = std::stoi(date.substr(0, 4));
+		month = std::stoi(date.substr(5, 2));
+		day = std::stoi(date.substr(8, 2));
+	}
+	catch (const std::exception &e)
+	{
+		return false;
+	}
+
+	if(year <= 0 || month < 1 || month > 12 || day < 1)
+		return false;
+
+	const int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+	bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+	if (month == 2 && isLeapYear)
+	{
+		if (day > 29)
+			return false;
+	}
+	else
+	{
+		if(day > daysInMonth[month])
+			return false;
+	}
+
+	return true;
+}
+
+bool BitcoinExchange::parseExchangeRate(const std::string &exchangeRate)
+{
+}
+
+void BitcoinExchange::updateMap(const std::string &date, float exchangeRate)
+{
+	database[date] = exchangeRate;
+}
+
 void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 {
 	std::ifstream databaseInstance(databaseFile);
@@ -71,9 +118,9 @@ void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 
 		//std::cout << line;
 		//std::cout << std::endl;
-		if(parseDate(date) && parseExchangeRate(exchangeRate))
+		if (parseDate(date) && parseExchangeRate(exchangeRate))
 		{
-			// function to insert date into a map
+			updateMap(date, std::stof(exchangeRate));
 		}
 		else
 		{
@@ -81,6 +128,5 @@ void BitcoinExchange::openDatabaseFile(const std::string &databaseFile)
 			std::exit(EXIT_FAILURE);
 		}
 	}
-
 	databaseInstance.close();
 }

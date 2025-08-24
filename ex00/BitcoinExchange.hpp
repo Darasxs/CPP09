@@ -11,10 +11,11 @@
 class BitcoinExchange
 {
 	private:
-		void openDatabaseFile(const std::string &databaseFile);
-		bool parseDate(const std::sting &date);
-		bool parseExchangeRate(const std::string &exchangeRate);
 		std::map<std::string, float> database;
+		void openDatabaseFile(const std::string &databaseFile);
+		bool parseDate(const std::string &date);
+		bool parseExchangeRate(const std::string &exchangeRate);
+		void updateMap(const std::string &date, float exchangeRate);
 
 	public:
 		BitcoinExchange(void);
