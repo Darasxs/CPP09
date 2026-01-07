@@ -88,8 +88,9 @@ bool BitcoinExchange::parseExchangeRate(const std::string &exchangeRate)
 {
 	try
 	{
-		double exchangeRateDouble = std::stod(exchangeRate);
-		if (exchangeRateDouble < 0)
+		size_t pos = 0;
+		double exchangeRateDouble = std::stod(exchangeRate, &pos);
+		if (exchangeRateDouble < 0 || pos != exchangeRate.length())
 		{
 			return false;
 		}
@@ -166,7 +167,6 @@ void BitcoinExchange::processInputFile(const std::string &inputFile)
 	bool isFirstLine = true;
 	while (getline(inputInstance, line))
 	{
-		// Skip the header line
 		if (isFirstLine)
 		{
 			isFirstLine = false;
@@ -178,7 +178,6 @@ void BitcoinExchange::processInputFile(const std::string &inputFile)
 		getline(stream, date, '|');
 		getline(stream, value);
 
-		// Trim whitespace from date and value
 		date.erase(0, date.find_first_not_of(" \t"));
 		date.erase(date.find_last_not_of(" \t") + 1);
 		value.erase(0, value.find_first_not_of(" \t"));
@@ -190,26 +189,26 @@ void BitcoinExchange::processInputFile(const std::string &inputFile)
 			continue;
 		}
 
-		// Find the closest earlier or equal date in the database
 		auto it = database.lower_bound(date);
-		if (it != database.end() && it->first == date)
+		if (it == database.begin() && (it == database.end() || it->first != date))
 		{
-			// Exact date found
-		}
-		else if (it == database.begin())
-		{
-			// No earlier date available
 			std::cerr << "Error: bad input => " << line << std::endl;
 			continue;
 		}
-		else
+		if (it == database.end() || it->first != date)
 		{
-			--it; // Use the closest earlier date
+			--it;
 		}
 
 		try
 		{
-			double inputValue = std::stod(value);
+			size_t pos = 0;
+			double inputValue = std::stod(value, &pos);
+			if (pos != value.length())
+			{
+				std::cerr << "Error: bad input => " << line << std::endl;
+				continue;
+			}
 			if (inputValue < 0)
 			{
 				std::cerr << "Error: not a positive number." << std::endl;
