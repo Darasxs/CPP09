@@ -91,18 +91,15 @@ bool BitcoinExchange::parseExchangeRate(const std::string &exchangeRate)
 		double exchangeRateDouble = std::stod(exchangeRate);
 		if (exchangeRateDouble < 0)
 		{
-			std::cout << "6" << std::endl;
 			return false;
 		}
 		if (exchangeRateDouble > INT_MAX)
 		{
-			std::cout << "7" << std::endl;
 			return false;
 		}
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << "Error: invalid exchange rate format: " << exchangeRate << std::endl;
 		return false;
 	}
 	return true;
@@ -193,15 +190,20 @@ void BitcoinExchange::processInputFile(const std::string &inputFile)
 			continue;
 		}
 
-		// Find the closest earlier date in the database
+		// Find the closest earlier or equal date in the database
 		auto it = database.lower_bound(date);
-		if (it == database.end() || it->first != date)
+		if (it != database.end() && it->first == date)
 		{
-			if (it == database.begin())
-			{
-				std::cerr << "Error: bad input => " << line << std::endl;
-				continue;
-			}
+			// Exact date found
+		}
+		else if (it == database.begin())
+		{
+			// No earlier date available
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue;
+		}
+		else
+		{
 			--it; // Use the closest earlier date
 		}
 

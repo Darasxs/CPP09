@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include <exception>
+#include <climits>
+#include <climits>
 
 class BitcoinExchange
 {
