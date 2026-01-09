@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:44:59 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/01/09 18:58:14 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:56:39 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int main(int argc, char **argv)
     try
     {
         RPN rpn(argv[1]);
+        int result = rpn.evaluate();
+        std::cout << result << std::endl;
     }
     catch (const std::exception &e)
     {
