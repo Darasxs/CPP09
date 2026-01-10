@@ -4,6 +4,8 @@
 # include <iostream>
 # include <stack>
 # include <sstream>
+# include <cctype>
+# include <stdexcept>
 
 class RPN 
 {
