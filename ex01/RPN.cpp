@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 16:42:32 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/01/10 13:53:13 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:35:29 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int RPN::evaluate(void)
         {
             if (stack.size() < 2)
             {
-                throw std::runtime_error("Invalid expression: not enough operands");
+                throw std::runtime_error("Invalid expression: too many operands");
             }
             int b = stack.top();
             stack.pop();
@@ -85,9 +85,9 @@ int RPN::evaluate(void)
         }
     }
 
-    if stack.size() != 1
+    if (stack.size() != 1)
     {
-        throw std::runtime_error("Invalid expression: too many operands");
+        throw std::runtime_error("Invalid expression: not enough operands");
     }
     return stack.top();
 }

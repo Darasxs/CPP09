@@ -1,6 +1,6 @@
 .SILENT:
 
-name = RPN
+NAME = RPN
 FLAGS = -Wall -Wextra -Werror -std=c++17
 CC = c++
 
@@ -11,14 +11,14 @@ OBJ = $(SRC:%.cpp=%.o)
 
 all: $(NAME)
 
-$(name): $(OBJ)
-	@if [ ! -d $(name) ]; then \
-		echo "\n$(GREEN)$(name) compiled successfully!$(NC)"; \
+$(NAME): $(OBJ)
+	@if [ ! -d $(NAME) ]; then \
+		echo "\n$(GREEN)$(NAME) compiled successfully!$(NC)"; \
 		echo "\n"; \
-		echo "run with: ./$(name)"; \
+		echo "run with: ./$(NAME)"; \
 		echo "------------------------------------------------"; \
 	fi
-	$(CC) $(FLAGS) $(OBJ) -o $(name)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp
 	$(CC) $(FLAGS) -c $< -o $@
@@ -27,7 +27,7 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(name)
+	rm -f $(NAME)
 
 re: fclean all
 
