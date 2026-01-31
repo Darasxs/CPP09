@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 19:20:31 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/01/31 17:26:49 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/01/31 17:41:49 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ bool PmergeMe::isValidNumber(const std::string &str)
     long num;
     ss >> num;
 
+    if (ss.fail() || num < 0 || num > 2147483647)
+        return false;
+
     return true;
 }
 
@@ -60,13 +63,22 @@ void PmergeMe::parseInput(int argc, char **argv)
         throw std::invalid_argument("Error: No input provided");
     for (int i = 1; i < argc; i++)
     {
-        // check each argument if it's integer and add them to the containers
-        for (int i = 1; i < argc; i++)
-        {
-           std::string arg(argv[i]);
-
-
-        }
+        std::string arg(argv[i]);
+        
+        if (!isValidNumber(arg))
+            throw std::invalid_argument("Error: Invalid input.");
+        
+        int num = std::atoi(arg.c_str());
+        vectorData.push_back(num);
+        dequeData.push_back(num);
+    }
+    
+    std::vector<int> temp = vectorData;
+    std::sort(temp.begin(), temp.end());
+    for (size_t i = 1; i < temp.size(); i++)
+    {
+        if (temp[i] == temp[i - 1])
+            throw std::invalid_argument("Error: Duplicate numbers.")
     }
 }
 

@@ -15,6 +15,7 @@ class PmergeMe
         std::vector<int> vectorData;
         std::deque<int> dequeData;
 
+        bool isValidNumber(const std::string &str);
         void parseInput(int argc, char **argv);
 
     public:
