@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 19:20:31 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/01/25 17:55:03 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/01/31 17:26:49 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,24 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &copy)
 
 PmergeMe::~PmergeMe(void) {}
 
+bool PmergeMe::isValidNumber(const std::string &str)
+{
+    if (str.empty())
+        return false;
+    
+    for (size_t i = 0; i< str.length(); i++)
+    {
+        if (!std::isdigit(str[i]))
+            return false;
+    }
+
+    std::stringstream ss(str);
+    long num;
+    ss >> num;
+
+    return true;
+}
+
 void PmergeMe::parseInput(int argc, char **argv)
 {
     if (argc < 2)
@@ -43,10 +61,17 @@ void PmergeMe::parseInput(int argc, char **argv)
     for (int i = 1; i < argc; i++)
     {
         // check each argument if it's integer and add them to the containers
+        for (int i = 1; i < argc; i++)
+        {
+           std::string arg(argv[i]);
+
+
+        }
     }
 }
 
 void PmergeMe::sort(void)
 {
+    // to be implemented
     // to be implemented
 }
