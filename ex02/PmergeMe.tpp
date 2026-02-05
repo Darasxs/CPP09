@@ -34,8 +34,8 @@ template <typename Container> void PmergeMe::mergeInsertSort(Container &data)
     }
 
     std::sort(pairs.begin(), pairs.end(),
-    [](const std::pair<value_type, value_type> &lhs,
-       const std::pair<value_type, value_type> &rhs)
+    [](const std::pair<typename Container::value_type, typename Container::value_type> &lhs,
+       const std::pair<typename Container::value_type, typename Container::value_type> &rhs)
     {
         return lhs.first < rhs.first;
     });
@@ -48,4 +48,6 @@ template <typename Container> void PmergeMe::mergeInsertSort(Container &data)
         mainChain.push_back(pairs[i].first);
         pend.push_back(pairs[i].second);
     }
+
+
 }
