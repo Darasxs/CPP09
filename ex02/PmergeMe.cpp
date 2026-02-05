@@ -6,7 +6,7 @@
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 19:20:31 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/02/05 19:58:44 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/02/05 20:37:58 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,6 @@ void PmergeMe::parseInput(int argc, char **argv)
         if (temp[i] == temp[i - 1])
             throw std::invalid_argument("Error: Duplicate numbers.");
     }
-}
-
-void PmergeMe::vectorSort()
-{
-    
-}
-
-void PmergeMe::dequeSort()
-{
-    
 }
 
 void PmergeMe::sort(void)

@@ -1,5 +1,5 @@
-#ifndef PMERGEME_CPP
-# define PMERGEME_CPP
+#ifndef PMERGEME_HPP
+# define PMERGEME_HPP
 
 # include <iostream>
 # include <vector>
@@ -17,8 +17,10 @@ class PmergeMe
 
         bool isValidNumber(const std::string &str);
         void parseInput(int argc, char **argv);
-        void vectorSort();
-        void dequeSort();
+
+        void vectorSort() { mergeInsertSort(vectorData); }
+        void dequeSort() { mergeInsertSort(dequeData); }
+        template <typename Container> void mergeInsertSort(Container &data);
 
     public:
         PmergeMe(void);
@@ -29,5 +31,7 @@ class PmergeMe
 
         void sort(void);
 };
+
+# include "PmergeMe.tpp"
 
 #endif
