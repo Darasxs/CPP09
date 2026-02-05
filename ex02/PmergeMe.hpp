@@ -17,6 +17,8 @@ class PmergeMe
 
         bool isValidNumber(const std::string &str);
         void parseInput(int argc, char **argv);
+        void vectorSort();
+        void dequeSort();
 
     public:
         PmergeMe(void);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pmerge.cpp                                         :+:      :+:    :+:   */
+/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpaluszk <dpaluszk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 19:20:31 by dpaluszk          #+#    #+#             */
-/*   Updated: 2026/01/31 17:41:49 by dpaluszk         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:58:44 by dpaluszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Pmerge.hpp"
+#include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(void) {}
 
@@ -78,12 +78,44 @@ void PmergeMe::parseInput(int argc, char **argv)
     for (size_t i = 1; i < temp.size(); i++)
     {
         if (temp[i] == temp[i - 1])
-            throw std::invalid_argument("Error: Duplicate numbers.")
+            throw std::invalid_argument("Error: Duplicate numbers.");
     }
+}
+
+void PmergeMe::vectorSort()
+{
+    
+}
+
+void PmergeMe::dequeSort()
+{
+    
 }
 
 void PmergeMe::sort(void)
 {
-    // to be implemented
-    // to be implemented
+    std::cout << "Before: ";
+    for (size_t i = 0; i < vectorData.size(); i++)
+        std::cout << vectorData[i] << " ";
+    std::cout << std::endl;
+    clock_t startVector = clock();
+    vectorSort();
+    clock_t endVector = clock();
+
+    clock_t startDeque = clock();
+    dequeSort();
+    clock_t endDeque = clock();
+
+    std::cout << "After: ";
+    for (size_t i = 0; i < vectorData.size(); i++)
+        std::cout << vectorData[i] << " ";
+    std::cout << std::endl;
+
+    double vectorTimeUs = static_cast<double>(endVector - startVector) * 1000000.0 / CLOCKS_PER_SEC;
+    double dequeTimeUs = static_cast<double>(endDeque - startDeque) * 1000000.0 / CLOCKS_PER_SEC;
+
+    std::cout << "Time to process a range of " << vectorData.size()
+              << " elements with std::vector : " << vectorTimeUs << " us" << std::endl;
+    std::cout << "Time to process a range of " << dequeData.size()
+              << " elements with std::deque : " << dequeTimeUs << " us" << std::endl;
 }
