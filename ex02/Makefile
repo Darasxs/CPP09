@@ -2,7 +2,6 @@
 
 NAME = PmergeMe
 FLAGS = -Wall -Wextra -Werror -std=c++17
-DEPFLAGS = -MMD -MP
 CC = c++
 
 SRC =	main.cpp \
@@ -33,5 +32,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
--include $(OBJ:.o=.d)
