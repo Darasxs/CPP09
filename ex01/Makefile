@@ -7,7 +7,7 @@ CC = c++
 SRC =	main.cpp \
 		RPN.cpp
 
-OBJ = $(SRC:%.cpp=%.o)
+OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 

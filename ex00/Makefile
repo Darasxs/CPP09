@@ -7,7 +7,7 @@ CC = c++
 SRC =	main.cpp \
 		BitcoinExchange.cpp
 
-OBJ = $(SRC:%.cpp=%.o)
+OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 

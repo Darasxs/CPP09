@@ -2,6 +2,7 @@
 
 NAME = PmergeMe
 FLAGS = -Wall -Wextra -Werror -std=c++17
+DEPFLAGS = -MMD -MP
 CC = c++
 
 SRC =	main.cpp \
@@ -21,7 +22,7 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) $(DEPFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
@@ -32,3 +33,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+-include $(OBJ:.o=.d)
