@@ -67,7 +67,12 @@ template <typename Container> void PmergeMe::mergeInsertSort(Container &data)
         }
         pairs.push_back(std::make_pair(maxVal, minVal));
     }
-
+    // std::cout << "PIERWSZY: ";
+    // for (size_t i = 0; i < pairs.size(); i++)
+    // {
+    //     std::cout << "(" << pairs[i].first << ", " << pairs[i].second << ") ";
+    // }    
+    // std::cout << std::endl;
     std::sort(pairs.begin(), pairs.end(),
     [](const std::pair<typename Container::value_type, typename Container::value_type> &lhs,
        const std::pair<typename Container::value_type, typename Container::value_type> &rhs)
@@ -84,6 +89,46 @@ template <typename Container> void PmergeMe::mergeInsertSort(Container &data)
         pend.push_back(pairs[i].second);
     }
 
+    // std::cout << "main chain: " << std::endl;
+    // for (size_t i = 0; i < mainChain.size(); i++)
+    // {
+    //     std::cout << mainChain[i] << " ";
+    // }
+    // std::cout << std::endl;
+    // std::cout << "pend : " << std::endl;
+    // for (size_t i = 0; i < pend.size(); i++)
+    // {
+    //     std::cout << pend[i] << " ";
+    // }
+    // std::cout << std::endl;
+
+    if (!pend.empty())
+    {
+        mainChain.insert(mainChain.begin(), pend[0]);
+    }
+
+    if (pend.size() > 1)
+    {
+        std::vector<size_t> jacobsthal;
+        jacobsthal.push_back(0);
+        jacobsthal.push_back(1);
+        size_t limit = pend.size() - 1;
+        while(true)
+        {
+            size_t next = jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2];
+            jacobsthal.push_back(next);
+            if(next >= limit)
+                break;
+        }
+    }
+    
+
+    // std::cout << "DRUGI: ";
+    // for (size_t i = 0; i < pairs.size(); i++)
+    // {
+    //     std::cout << "(" << pairs[i].first << ", " << pairs[i].second << ") ";
+    // }    
+    // std::cout << std::endl;
 
 }
 
